@@ -163,12 +163,17 @@ class Client
      * Query the Business API by business id
      *
      * @param    string   $businessId      The ID of the business to query
+     * @param    bool     $actionLinks     Whether to include action links, such as links to ordering on Eat24 (default: false)
      *
      * @return   stdClass                   The JSON response from the request
      */
-    public function getBusiness($businessId)
+    public function getBusiness($businessId, $actionLinks = false)
     {
         $businessPath = $this->businessPath . urlencode($businessId);
+        if ($actionLinks)
+        {
+            $businessPath .= '?actionLinks=True';
+        }
 
         return $this->request($businessPath);
     }
